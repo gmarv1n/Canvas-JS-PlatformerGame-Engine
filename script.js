@@ -42,10 +42,10 @@ var game = {
 				pWidth: 10,
 			}, 
 		],
-		posY: 250,
-		posX: 110,
-		pHeight: 10,
-		pWidth: 75,
+		// posY: 250,
+		// posX: 110,
+		// pHeight: 10,
+		// pWidth: 75,
 		drawPlatforms: function() {
 			for (var i = 0; i < game.platforms.platformList.length; i++) {
 				game.screen.ctx.fillRect(game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
@@ -96,7 +96,7 @@ var game = {
 			}
 			//***
 			// Condition for isOnThePlatform
-			// Injecting cyclefor platform condition
+			// Injecting cycle for isontheplatform condition
 			for (var i = 0; i < game.platforms.platformList.length; i++) {
 				if ( (this.posY == game.platforms.platformList[i].posY - 10) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
 					this.isJump = false;
@@ -122,6 +122,12 @@ var game = {
 				if ( (this.posX == game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) && (this.posY <= game.platforms.platformList[i].posY + game.platforms.platformList[i].pHeight )  && (this.posY >= game.platforms.platformList[i].posY)) {
 					this.isMoveLeft = false;
 					break;
+				} 
+			}
+			// Condition for head-touch-the-floor condition
+			for (var i = 0; i < game.platforms.platformList.length; i++) {
+				if ( (this.isJump) && (this.posY <= game.platforms.platformList[i].posY + game.platforms.platformList[i].pHeight) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
+					this.speedY = -1 * this.speedY;
 				} 
 			}
 			// X coordinatie movement conditions
