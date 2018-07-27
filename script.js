@@ -21,7 +21,7 @@ var game = {
 				posY: 200,
 				posX: 150,
 				pHeight: 10,
-				pWidth: 75,
+				pWidth: 75, 
 			},
 			{
 				posY: 170,
@@ -82,20 +82,42 @@ var game = {
 				this.isJump = false;
 				this.speedY = -1 * this.speedY;
 			}
+			//***
 			// Condition for isOnThePlatform
+			// if ( (this.posY == game.platforms.posY - 10) && (this.posX >= game.platforms.posX) && (this.posX <= game.platforms.posX + game.platforms.pWidth - this.rWidth) ) {
+			// 	this.isJump = false;
+			// 	this.isOnThePlatform = true;
+			// 	if(this.isOnThePlatform && (this.speedY < 0)) {
+			// 		this.speedY = -1 * this.speedY;
+			// 	}
+			// }
+			// if ( (this.posX < game.platforms.posX) || (this.posX > game.platforms.posX + game.platforms.pWidth) ) {
+			// 	this.isOnThePlatform = false;
+			// 	this.isOnTheGround = false;
+			// } 
+			// Injecting cyclefor platform condition
 
-
-			if ( (this.posY == game.platforms.posY - 10) && (this.posX >= game.platforms.posX) && (this.posX <= game.platforms.posX + game.platforms.pWidth - this.rWidth) ) {
-				this.isJump = false;
-				this.isOnThePlatform = true;
-				if(this.isOnThePlatform && (this.speedY < 0)) {
-					this.speedY = -1 * this.speedY;
+			for (var i = 0; i < game.platforms.platformList.length; i++) {
+				if ( (this.posY == game.platforms.platformList[i].posY - 10) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
+					this.isJump = false;
+					this.isOnThePlatform = true;
+					if(this.isOnThePlatform && (this.speedY < 0)) {
+						this.speedY = -1 * this.speedY;
+					}
+				break;
+				} else if ( (this.posX < game.platforms.platformList[i].posX) || (this.posX > game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
+					this.isOnThePlatform = false;
+					this.isOnTheGround = false;
 				}
 			}
-			if ( (this.posX < game.platforms.posX) || (this.posX > game.platforms.posX + game.platforms.pWidth) ) {
-				this.isOnThePlatform = false;
-				this.isOnTheGround = false;
-			} 
+			// for (var i = 0; i < game.platforms.platformList.length; i++) {
+			// 	if ( (this.posX < game.platforms.platformList[i].posX) || (this.posX > game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
+			// 		this.isOnThePlatform = false;
+			// 		this.isOnTheGround = false;
+			// 	} 
+			// }
+
+			//***
 			// X coordinatie movement conditions
 			if ( this.isMoveRight && (game.rect.posX <= game.screen.ctxWidth - game.rect.rWidth) ){
 				this.posX += this.speedX;
