@@ -32,23 +32,29 @@ var game = {
 			{
 				posY: 130,
 				posX: 290,
-				pHeight: 50,
-				pWidth: 10,
+				pHeight: 20,
+				pWidth: 35,
 			}, 
 			{
 				posY: 220,
 				posX: 290,
-				pHeight: 50,
-				pWidth: 10,
+				pHeight: 10,
+				pWidth: 16,
 			}, 
 		],
 		// posY: 250,
 		// posX: 110,
 		// pHeight: 10,
 		// pWidth: 75,
+		platformImage: function() {
+			var platformSprite = new Image();
+			platformSprite.src = 'platformSprite.png';
+			return platformSprite;
+		},
 		drawPlatforms: function() {
 			for (var i = 0; i < game.platforms.platformList.length; i++) {
-				game.screen.ctx.fillRect(game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
+				//game.screen.ctx.fillRect(game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
+				game.screen.ctx.drawImage(this.platformImage(), game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
 			}
 			game.screen.ctx.fillStyle = 'dimgrey';
 		},
