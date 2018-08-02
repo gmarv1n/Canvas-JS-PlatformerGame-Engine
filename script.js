@@ -57,6 +57,19 @@ var game = {
 	rect: {
 		rWidth: 10,
 		rHeight: 10,
+		bunny: function() {
+			var bunnySprite = new Image();
+			bunnySprite.src = 'bunnySprite.png';
+			return bunnySprite;
+		},
+		bunnyDirectionSx: 0,
+		checkBunnyDirection: function() {
+			if (this.speedX > 0) {
+				this.bunnyDirectionSx = 10;
+			} else if (this.speedX < 0) {
+				this.bunnyDirectionSx = 0;
+			}
+		},
 		posX: 50,
 		posY: 0,
 		speedX: 0,
@@ -191,8 +204,10 @@ var game = {
 		drawRect: function() {		
 			this.jump();
 			this.move();
-			game.screen.ctx.fillRect(this.posX, this.posY, this.rWidth, this.rHeight);
-			game.screen.ctx.fillStyle = 'black';
+			//game.screen.ctx.fillRect(this.posX, this.posY, this.rWidth, this.rHeight);
+			this.checkBunnyDirection();
+			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 10, 10);
+			//game.screen.ctx.fillStyle = 'black';
 		},
 	},
 	setCanvasProps: function() {
