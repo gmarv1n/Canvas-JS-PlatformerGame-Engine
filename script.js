@@ -31,8 +31,8 @@ var game = {
 			},
 			{
 				posY: 130,
-				posX: 290,
-				pHeight: 20,
+				posX: 300,
+				pHeight: 12,
 				pWidth: 35,
 			}, 
 			{
@@ -61,8 +61,8 @@ var game = {
 	},
 	
 	rect: {
-		rWidth: 10,
-		rHeight: 10,
+		rWidth: 15,
+		rHeight: 15,
 		bunny: function() {
 			var bunnySprite = new Image();
 			bunnySprite.src = 'bunnySprite.png';
@@ -126,7 +126,7 @@ var game = {
 			// Condition for isOnThePlatform
 			// Injecting cycle for isontheplatform condition
 			for (var i = 0; i < game.platforms.platformList.length; i++) {
-				if ( (this.posY == game.platforms.platformList[i].posY - 10) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
+				if ( (this.posY == game.platforms.platformList[i].posY - this.rHeight) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
 					this.isJump = false;
 					this.isOnThePlatform = true;
 					if(this.isOnThePlatform && (this.speedY < 0)) {
@@ -212,7 +212,7 @@ var game = {
 			this.move();
 			//game.screen.ctx.fillRect(this.posX, this.posY, this.rWidth, this.rHeight);
 			this.checkBunnyDirection();
-			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 10, 10);
+			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 15, 15);
 			//game.screen.ctx.fillStyle = 'black';
 		},
 	},
