@@ -12,13 +12,13 @@ var game = {
 	platforms: {
 		platformList: [
 			{
-				posY: 250,
+				posY: 255,
 				posX: 110,
 				pHeight: 10,
 				pWidth: 75,
 			},
 			{
-				posY: 200,
+				posY: 210,
 				posX: 150,
 				pHeight: 10,
 				pWidth: 75, 
@@ -71,8 +71,17 @@ var game = {
 
 		isMoveRight: false,
 		isMoveLeft: false,
-		move: function() {
+		isHeadBump: function() {
+			for (var i = 0; i < game.platforms.platformList.length; i++) {
+				if (this.isJump && (this.speedY < 0) && (this.posY > game.platforms.platformList[i].posY) && ( this.posY <= game.platforms.platformList[i].posY + game.platforms.platformList[i].pHeight ) && (this.posX + this.rWidth > game.platforms.platformList[i].posX) && (this.posX < game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth)) {
+					return true;
 
+				}
+			}
+			return false;
+		},
+		move: function() {
+			console.log(this.speedY);
 			// console.log(this.isOnThePlatform);
 			// console.log(this.isOnTheGround);
 			console.log(this.nextjump);
@@ -90,7 +99,7 @@ var game = {
 			if (this.isJump && (this.posY > this.nextJump)) { // *** jump up
 				this.posY += this.speedY;
 			} 
-			if (this.isJump && (this.posY <= this.nextJump)) {
+			if ((this.isJump && (this.posY <= this.nextJump)) || this.isHeadBump()) {
 				this.isJump = false;
 				this.speedY = -1 * this.speedY;
 			}
@@ -124,12 +133,7 @@ var game = {
 					break;
 				} 
 			}
-			// Condition for head-touch-the-floor condition
-			for (var i = 0; i < game.platforms.platformList.length; i++) {
-				if ( (this.isJump) && (this.posY <= game.platforms.platformList[i].posY + game.platforms.platformList[i].pHeight) && (this.posX >= game.platforms.platformList[i].posX - this.rWidth) && (this.posX <= game.platforms.platformList[i].posX + game.platforms.platformList[i].pWidth) ) {
-					this.speedY = -1 * this.speedY;
-				} 
-			}
+
 			// X coordinatie movement conditions
 			if ( this.isMoveRight && (game.rect.posX <= game.screen.ctxWidth - game.rect.rWidth) ){
 				this.posX += this.speedX;
