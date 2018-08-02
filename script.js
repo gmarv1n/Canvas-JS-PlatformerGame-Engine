@@ -36,11 +36,29 @@ var game = {
 				pWidth: 35,
 			}, 
 			{
-				posY: 220,
+				posY: 265,
 				posX: 290,
 				pHeight: 10,
 				pWidth: 16,
 			}, 
+			{
+				posY: 255,
+				posX: 300,
+				pHeight: 10,
+				pWidth: 16,
+			},
+			{
+				posY: 245,
+				posX: 310,
+				pHeight: 10,
+				pWidth: 16,
+			}, 
+			{
+				posY: 235,
+				posX: 320,
+				pHeight: 10,
+				pWidth: 16,
+			},  
 		],
 		// posY: 250,
 		// posX: 110,
@@ -61,8 +79,8 @@ var game = {
 	},
 	
 	rect: {
-		rWidth: 15,
-		rHeight: 15,
+		rWidth: 10,
+		rHeight: 10,
 		bunny: function() {
 			var bunnySprite = new Image();
 			bunnySprite.src = 'bunnySprite.png';
@@ -212,7 +230,7 @@ var game = {
 			this.move();
 			//game.screen.ctx.fillRect(this.posX, this.posY, this.rWidth, this.rHeight);
 			this.checkBunnyDirection();
-			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 15, 15);
+			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 10, 10);
 			//game.screen.ctx.fillStyle = 'black';
 		},
 	},
