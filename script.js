@@ -4,9 +4,14 @@ var game = {
 	
 	screen: {
 		canvas: document.querySelector('canvas'),
-		ctxHeight: 300,
+		ctxHeight: 320,
 		ctxWidth: 400,
 		ctx: this.canvas.getContext('2d'),
+		getBackground: function() {
+			var backgroundImg = new Image();
+			backgroundImg.src = 'background.png';
+			return backgroundImg;
+		},
 	},
 
 	platforms: {
@@ -59,6 +64,12 @@ var game = {
 				pHeight: 10,
 				pWidth: 16,
 			},  
+			{
+				posY: 280,
+				posX: 340,
+				pHeight: 15,
+				pWidth: 20,
+			},
 		],
 		// posY: 250,
 		// posX: 110,
@@ -74,7 +85,6 @@ var game = {
 				//game.screen.ctx.fillRect(game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
 				game.screen.ctx.drawImage(this.platformImage(), game.platforms.platformList[i].posX, game.platforms.platformList[i].posY, game.platforms.platformList[i].pWidth, game.platforms.platformList[i].pHeight);
 			}
-			game.screen.ctx.fillStyle = 'dimgrey';
 		},
 	},
 	
@@ -127,7 +137,7 @@ var game = {
 
 			// Setting nextjump value
 			if (this.isOnTheGround && !this.isJump) {
-				this.nextJump = game.screen.ctxHeight - this.jumpHeight;
+				this.nextJump = game.screen.ctxHeight - this.jumpHeight - 20;
 			}
 			if (this.isOnThePlatform && !this.isJump) {
 				this.nextJump = this.posY - this.jumpHeight;
@@ -156,6 +166,7 @@ var game = {
 					this.isOnTheGround = false;
 				}
 			}
+			console.log(this.posX + this.rWidth);
 			//***
 			// Conditions for X coordinates collisions with platforms
 			for (var i = 0; i < game.platforms.platformList.length; i++) {
@@ -174,12 +185,28 @@ var game = {
 			// X coordinatie movement conditions
 			if ( this.isMoveRight && (game.rect.posX <= game.screen.ctxWidth - game.rect.rWidth) ){
 				this.posX += this.speedX;
+				if (this.posX % 10 == 0) {
+					game.screen.ctx.fillRect(game.rect.posX - 3, game.rect.posY + game.rect.rHeight - 2, 2, 2);
+					game.screen.ctx.fillStyle = "brown";
+				}
+				if (this.posX % 15 == 0) {
+					game.screen.ctx.fillRect(game.rect.posX - 6, game.rect.posY + game.rect.rHeight - 3, 2, 2);
+					game.screen.ctx.fillStyle = "brown";
+				}
 			}
 			if ( this.isMoveLeft && (game.rect.posX >= 0) ){
 				this.posX += this.speedX;
+				if (this.posX % 10 == 0) {
+					game.screen.ctx.fillRect(game.rect.posX +10 + 3, game.rect.posY + game.rect.rHeight - 2, 2, 2);
+					game.screen.ctx.fillStyle = "brown";
+				}
+				if (this.posX % 15 == 0) {
+					game.screen.ctx.fillRect(game.rect.posX +10 + 6, game.rect.posY + game.rect.rHeight - 3, 2, 2);
+					game.screen.ctx.fillStyle = "brown";
+				}
 			}
 			// Condition for isOnTheGround
-			if (this.posY >= game.screen.ctxHeight - this.rHeight) {
+			if (this.posY >= game.screen.ctxHeight - this.rHeight - 20) {
 				this.isOnTheGround = true;
 				this.isJump = false;
 				//return;
@@ -189,6 +216,7 @@ var game = {
 				this.posY += this.speedY;
 			}
 		},
+
 		jump: function() {
 
 			window.onkeydown = function(e) {
@@ -228,20 +256,22 @@ var game = {
 		drawRect: function() {		
 			this.jump();
 			this.move();
-			//game.screen.ctx.fillRect(this.posX, this.posY, this.rWidth, this.rHeight);
 			this.checkBunnyDirection();
 			game.screen.ctx.drawImage(this.bunny(), this.bunnyDirectionSx, 0, 10, 10, this.posX, this.posY, 10, 10);
-			//game.screen.ctx.fillStyle = 'black';
 		},
 	},
 	setCanvasProps: function() {
 		game.screen.ctx.height = game.screen.ctxHeight;
 		game.screen.ctx.width = game.screen.ctxwidth;
 	},
+	drawBackground: function() {
+		game.screen.ctx.drawImage(game.screen.getBackground(), 0, 0,);
+	},
 
 	start: function() {
 		game.setCanvasProps();
 		game.screen.ctx.clearRect(0, 0, game.screen.ctxWidth, game.screen.ctxHeight);
+		game.drawBackground();
 		game.rect.drawRect();
 		game.platforms.drawPlatforms();
 		
